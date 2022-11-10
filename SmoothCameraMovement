@@ -1,0 +1,45 @@
+public class SmoothCameraMovement : MonoBehaviour
+{
+    [Header("Target Object")]
+    public GameObject target;
+
+    [Header("Lock Camera Movement")]
+    public int lockTransistionX;
+    public int lockTransistionY;
+    public int lockTransistionZ;
+
+    [Header("Attributes")]
+    public float smoothTime;
+    public float whenToMove;
+    public float depth = -1f;    
+
+    private Vector3 velocity  = new Vector3(0, 0, 0);
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        transform.position = new Vector3(1, 0, -1);
+    }
+
+    void SmoothCamerMovement(int lockX,int lockY, int lockZ, Transform target)
+    {
+        Vector3 start = new Vector3(transform.position.x * lockX, transform.position.y * lockY, depth * lockZ);
+        Vector3 end = new Vector3(target.position.x * lockX, target.transform.position.y * lockY, depth * lockZ);
+
+        transform.position = Vector3.SmoothDamp(start, end, ref velocity, smoothTime);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {        
+        Vector3 start = new Vector3(transform.position.x, transform.position.y, -1);
+        Vector3 end = new Vector3(target.transform.position.x, target.transform.position.y, -1);
+
+        Vector3 distance = end - start;
+
+        if(distance.magnitude > whenToMove)
+        {
+            SmoothCamerMovement(lockTransistionX, lockTransistionY, lockTransistionZ, target.transform);
+        }
+    }    
+}
