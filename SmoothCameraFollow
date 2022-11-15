@@ -1,17 +1,16 @@
 public class SmoothCameraMovement : MonoBehaviour
 {
     [Header("Target Object")]
-    public GameObject target;
+    public GameObject target; \\The GameObject that must be followed by the camera
 
     [Header("Lock Camera Movement")]
-    public int lockTransistionX;
-    public int lockTransistionY;
-    public int lockTransistionZ;
+    public int lockTransistionX;  \\ If enabled i.e if equal to one then the camera follows along the x Axis
+    public int lockTransistionY;  \\ If enabled i.e if equal to one then the camera follows along the y Axis
 
     [Header("Attributes")]
-    public float smoothTime;
-    public float whenToMove;
-    public float depth = -1f;    
+    public float smoothTime; \\ The time taken by camera before reaching the target, a larger value means a smoother flow
+    public float whenToMove; \\ The minimum distance between camera and target at which the camera starts following
+    public float depth = -1f; 
 
     private Vector3 velocity  = new Vector3(0, 0, 0);
 
